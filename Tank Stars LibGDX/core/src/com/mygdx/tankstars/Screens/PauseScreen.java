@@ -49,6 +49,7 @@ public class PauseScreen implements Screen {
     private TextButton buttonQuit;
     private TextButton buttonSave;
 
+
     public PauseScreen(PlayScreen playScreen) {
 
         this.game = playScreen.getGame();
@@ -127,7 +128,7 @@ public class PauseScreen implements Screen {
         table.row();
         buttonResume.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new PlayScreen(game));
+                game.setScreen(new ChooseTankScreen(game));
                 return true;
             }
         });
@@ -139,6 +140,7 @@ public class PauseScreen implements Screen {
         });
         buttonSave.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                TankStars.savedgame=p;
                 game.setScreen(new MenuScreen(game));
                 return true;
             }
@@ -195,6 +197,7 @@ public class PauseScreen implements Screen {
         skin.dispose();
         skin_font.dispose();
         backgroundImage.dispose();
+
     }
 
 }

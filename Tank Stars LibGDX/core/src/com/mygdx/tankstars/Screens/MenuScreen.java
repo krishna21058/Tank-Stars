@@ -4,6 +4,7 @@ import static com.badlogic.gdx.utils.Align.center;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,7 +20,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.tankstars.MusicManager;
 import com.mygdx.tankstars.TankStars;
 
 public class MenuScreen implements Screen {
@@ -39,8 +42,158 @@ public class MenuScreen implements Screen {
     public static float worldWidth;
     public static float worldHeight;
     private Texture TankImage;
+
+    public Skin getSkin_font() {
+        return skin_font;
+    }
+
+    public PlayScreen getP() {
+        return p;
+    }
+
+    public void setP(PlayScreen p) {
+        this.p = p;
+    }
+
+    public TextButton getButtonPlay() {
+        return buttonPlay;
+    }
+
+    public void setButtonPlay(TextButton buttonPlay) {
+        this.buttonPlay = buttonPlay;
+    }
+
+    public TextButton getButtonExit() {
+        return buttonExit;
+    }
+
+    public void setButtonExit(TextButton buttonExit) {
+        this.buttonExit = buttonExit;
+    }
+
+    public TextButton getButtonContinue() {
+        return buttonContinue;
+    }
+
+    public void setButtonContinue(TextButton buttonContinue) {
+        this.buttonContinue = buttonContinue;
+    }
+
+    public TextButton getButtonComp() {
+        return buttonComp;
+    }
+
+    public void setButtonComp(TextButton buttonComp) {
+        this.buttonComp = buttonComp;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public TankStars getGame() {
+        return game;
+    }
+
+    public void setGame(TankStars game) {
+        this.game = game;
+    }
+
+    public Texture getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(Texture backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public Texture getLogoImage() {
+        return logoImage;
+    }
+
+    public void setLogoImage(Texture logoImage) {
+        this.logoImage = logoImage;
+    }
+
+    public TextureRegion getBackgroundTexture() {
+        return backgroundTexture;
+    }
+
+    public void setBackgroundTexture(TextureRegion backgroundTexture) {
+        this.backgroundTexture = backgroundTexture;
+    }
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
+    }
+
+    public Skin getSkin() {
+        return skin;
+    }
+
+    public void setSkin(Skin skin) {
+        this.skin = skin;
+    }
+
+    public ShapeRenderer getShaperenderer() {
+        return shaperenderer;
+    }
+
+    public void setShaperenderer(ShapeRenderer shaperenderer) {
+        this.shaperenderer = shaperenderer;
+    }
+
+    public TextButton.TextButtonStyle getButtonStyle() {
+        return buttonStyle;
+    }
+
+    public void setButtonStyle(TextButton.TextButtonStyle buttonStyle) {
+        this.buttonStyle = buttonStyle;
+    }
+
+    public Texture getTankImage() {
+        return TankImage;
+    }
+
+    public void setTankImage(Texture tankImage) {
+        TankImage = tankImage;
+    }
+
+    public ImageButton getMusic() {
+        return music;
+    }
+
+    public void setMusic(ImageButton music) {
+        this.music = music;
+    }
+
+    public Stage getStage1() {
+        return stage1;
+    }
+
+    public void setStage1(Stage stage1) {
+        this.stage1 = stage1;
+    }
+
+    public Music getMusic_m() {
+        return music_m;
+    }
+
+    public void setMusic_m(Music music_m) {
+        this.music_m = music_m;
+    }
+
     private ImageButton music;
     private Stage stage1;
+    private Music music_m;
 //    private Texture Logo;
 
     public MenuScreen(TankStars game) {
@@ -48,6 +201,12 @@ public class MenuScreen implements Screen {
         this.game = game;
         this.worldWidth=Gdx.graphics.getWidth();
         this.worldHeight=Gdx.graphics.getHeight();
+        music_m= MusicManager.getManager().get("New Victories Await.mp3", Music.class);
+
+        music_m.setLooping(true);
+        music_m.play();
+
+
         backgroundImage = new Texture(Gdx.files.internal("menubg.png"));
         TankImage = new Texture(Gdx.files.internal("tankCoalition.png"));
         logoImage = new Texture(Gdx.files.internal("logoEdited.png"));
@@ -115,16 +274,20 @@ public class MenuScreen implements Screen {
         table.add(buttonExit).width(200).height(80);
 
         table.row();
-        buttonContinue.addListener(new InputListener(){
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                game.setScreen(new PlayScreen(game));
-                return true;
+    buttonContinue.addListener(new ClickListener(){
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            music_m.stop();
+            if(TankStars.savedgame!=null){
+                game.setScreen(TankStars.savedgame);
             }
-        });
+        }
+    });
         buttonPlay.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 dispose();
                 game.setScreen(new ChooseTankScreen(game));
+                music_m.stop();
                 return true;
             }
         });
@@ -132,6 +295,7 @@ public class MenuScreen implements Screen {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 dispose();
                 Gdx.app.exit();
+
                 return true;
             }
         });

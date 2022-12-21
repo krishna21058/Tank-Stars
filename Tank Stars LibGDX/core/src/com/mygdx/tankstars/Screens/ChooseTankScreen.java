@@ -5,6 +5,7 @@ import static com.badlogic.gdx.utils.Align.center;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,6 +24,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.tankstars.MusicManager;
+import com.mygdx.tankstars.Tank;
 import com.mygdx.tankstars.TankCoalition;
 import com.mygdx.tankstars.TankFrost;
 import com.mygdx.tankstars.TankHelios;
@@ -53,9 +56,230 @@ public class ChooseTankScreen implements Screen {
     private TextButton Tb_tank2;
     private TextButton Tb_tank3;
 
+    private String P1_tank;
+    private String P2_tank;
+
+
     private int currentPlayer;
     private int tankL;
-    private int tankR;
+    private int currTank;
+    private Music music_m;
+
+    public PlayScreen getP() {
+        return p;
+    }
+
+    public void setP(PlayScreen p) {
+        this.p = p;
+    }
+
+    public TextButton getButtonNext() {
+        return buttonNext;
+    }
+
+    public void setButtonNext(TextButton buttonNext) {
+        this.buttonNext = buttonNext;
+    }
+
+    public TextButton getButtonBack() {
+        return buttonBack;
+    }
+
+    public void setButtonBack(TextButton buttonBack) {
+        this.buttonBack = buttonBack;
+    }
+
+    public TextButton getButtonSelect() {
+        return buttonSelect;
+    }
+
+    public void setButtonSelect(TextButton buttonSelect) {
+        this.buttonSelect = buttonSelect;
+    }
+
+    public TextButton getButtonPlayer1() {
+        return buttonPlayer1;
+    }
+
+    public void setButtonPlayer1(TextButton buttonPlayer1) {
+        this.buttonPlayer1 = buttonPlayer1;
+    }
+
+    public TextButton getButtonPlayer2() {
+        return buttonPlayer2;
+    }
+
+    public void setButtonPlayer2(TextButton buttonPlayer2) {
+        this.buttonPlayer2 = buttonPlayer2;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public TankStars getGame() {
+        return game;
+    }
+
+    public void setGame(TankStars game) {
+        this.game = game;
+    }
+
+    public Texture getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(Texture backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public TextureRegion getBackgroundTexture() {
+        return backgroundTexture;
+    }
+
+    public void setBackgroundTexture(TextureRegion backgroundTexture) {
+        this.backgroundTexture = backgroundTexture;
+    }
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
+    }
+
+    public Label getMyLabel() {
+        return myLabel;
+    }
+
+    public void setMyLabel(Label myLabel) {
+        this.myLabel = myLabel;
+    }
+
+    public Skin getSkin() {
+        return skin;
+    }
+
+    public void setSkin(Skin skin) {
+        this.skin = skin;
+    }
+
+    public Skin getSkin_font() {
+        return skin_font;
+    }
+
+    public void setSkin_font(Skin skin_font) {
+        this.skin_font = skin_font;
+    }
+
+    public ShapeRenderer getShaperenderer() {
+        return shaperenderer;
+    }
+
+    public void setShaperenderer(ShapeRenderer shaperenderer) {
+        this.shaperenderer = shaperenderer;
+    }
+
+    public TextButton.TextButtonStyle getButtonStyle() {
+        return buttonStyle;
+    }
+
+    public void setButtonStyle(TextButton.TextButtonStyle buttonStyle) {
+        this.buttonStyle = buttonStyle;
+    }
+
+    public Texture getTankHelios_Image() {
+        return tankHelios_Image;
+    }
+
+    public void setTankHelios_Image(Texture tankHelios_Image) {
+        this.tankHelios_Image = tankHelios_Image;
+    }
+
+    public ImageButton getTankHelios_Button() {
+        return tankHelios_Button;
+    }
+
+    public void setTankHelios_Button(ImageButton tankHelios_Button) {
+        this.tankHelios_Button = tankHelios_Button;
+    }
+
+    public TextButton getTb_tank1() {
+        return Tb_tank1;
+    }
+
+    public void setTb_tank1(TextButton tb_tank1) {
+        Tb_tank1 = tb_tank1;
+    }
+
+    public TextButton getTb_tank2() {
+        return Tb_tank2;
+    }
+
+    public void setTb_tank2(TextButton tb_tank2) {
+        Tb_tank2 = tb_tank2;
+    }
+
+    public TextButton getTb_tank3() {
+        return Tb_tank3;
+    }
+
+    public void setTb_tank3(TextButton tb_tank3) {
+        Tb_tank3 = tb_tank3;
+    }
+
+    public String getP1_tank() {
+        return P1_tank;
+    }
+
+    public void setP1_tank(String p1_tank) {
+        P1_tank = p1_tank;
+    }
+
+    public String getP2_tank() {
+        return P2_tank;
+    }
+
+    public void setP2_tank(String p2_tank) {
+        P2_tank = p2_tank;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public int getTankL() {
+        return tankL;
+    }
+
+    public void setTankL(int tankL) {
+        this.tankL = tankL;
+    }
+
+    public int getCurrTank() {
+        return currTank;
+    }
+
+    public void setCurrTank(int currTank) {
+        this.currTank = currTank;
+    }
+
+    public Music getMusic_m() {
+        return music_m;
+    }
+
+    public void setMusic_m(Music music_m) {
+        this.music_m = music_m;
+    }
 
     public ChooseTankScreen(TankStars game) {
 
@@ -63,7 +287,11 @@ public class ChooseTankScreen implements Screen {
         this.worldWidth = Gdx.graphics.getWidth();
         this.worldHeight = Gdx.graphics.getHeight();
         this.shaperenderer = new ShapeRenderer();
+        music_m= MusicManager.getManager().get("New Victories Await - Copy.mp3", Music.class);
+        music_m.setLooping(true);
+        music_m.play();
         this.stage = new Stage();
+
         backgroundImage = new Texture(Gdx.files.internal("greenbg.png"));
         this.skin = new Skin(Gdx.files.internal("skin/neon-ui.json"));
         this.skin_font = new Skin(Gdx.files.internal("skin-freezing/freezing-ui.json"));
@@ -229,8 +457,7 @@ public class ChooseTankScreen implements Screen {
                 Tb_tank1.setColor(Color.YELLOW);
                 Tb_tank2.setColor(Color.GREEN);
                 Tb_tank3.setColor(Color.GREEN);
-                TankHelios tankHelios=new TankHelios();
-
+                currTank=1;
             }
         });
         Tb_tank2.addListener(new ClickListener() {
@@ -239,7 +466,7 @@ public class ChooseTankScreen implements Screen {
                 Tb_tank2.setColor(Color.YELLOW);
                 Tb_tank3.setColor(Color.GREEN);
                 Tb_tank1.setColor(Color.GREEN);
-                TankCoalition tankCoalition=new TankCoalition();
+                currTank=2;
 
             }
         });
@@ -249,14 +476,37 @@ public class ChooseTankScreen implements Screen {
                 Tb_tank3.setColor(Color.YELLOW);
                 Tb_tank2.setColor(Color.GREEN);
                 Tb_tank1.setColor(Color.GREEN);
-                TankFrost tankFrost=new TankFrost();
+                currTank=3;
+            }
+        });
+        buttonSelect.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(currentPlayer==1){
+                    if(currTank==1){
+                        P1_tank="tankHelios";
+                    }else if(currTank==2){
+                        P1_tank="tankCoalition";
+                    }else if(currTank==3){
+                        P1_tank="tankFrost";
+                    }
+                }
+                else{
+                    if(currTank==1){
+                        P2_tank="tankHelios";
+                    }else if(currTank==2){
+                        P2_tank="tankCoalition";
+                    }else if(currTank==3){
+                        P2_tank="tankFrost";
+                    }
+                }
             }
         });
         buttonNext.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(new PlayScreen(game));
+                game.setScreen(new PlayScreen(game,P1_tank,P2_tank));
             }
         });
         buttonBack.addListener(new ClickListener() {

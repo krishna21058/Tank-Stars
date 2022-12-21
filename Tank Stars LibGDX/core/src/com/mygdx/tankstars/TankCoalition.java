@@ -1,10 +1,29 @@
 package com.mygdx.tankstars;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.tankstars.Screens.PlayScreen;
+
 public class TankCoalition extends Tank
 {
-    private float fuel;
-    private float health;
-    private int currentPosition;
+    public TankCoalition(){;}
+    public TankCoalition(PlayScreen screen,int inv) {
+        this.world = screen.getWorld();
+        defineTank(inv);
+        setBounds(body.getPosition().x,body.getPosition().y, 80 / TankStars.ppm, 40 / TankStars.ppm);
+
+        Texture texture = new Texture("tankCoalition_new.png");
+        if(inv==1) {
+            Sprite spriteTankFrost = new Sprite(texture);
+            spriteTankFrost.flip(true, false);
+            setRegion(spriteTankFrost);
+        }
+        else{
+
+            setRegion(texture);
+        }
+    }
+
 
     public float getHealth()
     {
@@ -51,7 +70,7 @@ public class TankCoalition extends Tank
 
     }
 
-    protected void moveFowrardd()
+    protected void moveForward()
     {
 
     }
@@ -64,5 +83,10 @@ public class TankCoalition extends Tank
     protected void damageConceded()
     {
 
+    }
+    @Override
+    public void update(float dt) {
+        super.update(dt);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
     }
 }

@@ -1,67 +1,83 @@
 package com.mygdx.tankstars;
-public class TankHelios extends Tank
-{
-    private float fuel;
-    private float health;
-    private int currentPosition;
 
-    public float getHealth()
-    {
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.tankstars.Screens.PlayScreen;
+
+public class TankHelios extends Tank {
+    public TankHelios(){;}
+    public TankHelios(PlayScreen screen,int inv){
+        this.world = screen.getWorld();
+        defineTank(inv);
+        setBounds(body.getPosition().x,body.getPosition().y, 80 / TankStars.ppm, 40 / TankStars.ppm);
+
+        Texture texture = new Texture("tankHelios_new.png");
+        if(inv==1) {
+            Sprite spriteTankFrost = new Sprite(texture);
+            spriteTankFrost.flip(true, false);
+            setRegion(spriteTankFrost);
+        }
+        else{
+
+            setRegion(texture);
+        }
+
+
+    }
+
+
+    public float getHealth() {
         return health;
     }
 
-    public void setHealth(float health)
-    {
+    public void setHealth(float health) {
         this.health = health;
     }
 
-    public int getCurrentPosition()
-    {
+    public int getCurrentPosition() {
         return currentPosition;
     }
 
-    public void setCurrentPosition(int currentPosition)
-    {
+    public void setCurrentPosition(int currentPosition) {
         this.currentPosition = currentPosition;
     }
 
-    public float getFuel()
-    {
+    public float getFuel() {
         return fuel;
     }
 
-    public void setFuel(float fuel)
-    {
+    public void setFuel(float fuel) {
         this.fuel = fuel;
     }
 
-    protected void fire()
-    {
+    protected void fire() {
 
     }
 
-    protected void angle()
-    {
+    protected void angle() {
 
     }
 
-    protected void power()
-    {
+    protected void power() {
 
     }
 
-    protected void moveFowrardd()
-    {
+    protected void moveForward() {
 
     }
 
-    protected void moveBackward()
-    {
+    protected void moveBackward() {
 
     }
 
-    protected void damageConceded()
-    {
+    protected void damageConceded() {
 
     }
+
+    @Override
+    public void update(float dt) {
+        super.update(dt);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
+    }   
 }
